@@ -3,13 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lancer IA</title>
+  <title>NetSecurePro IA</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     body {
       font-family: Arial, sans-serif;
       text-align: center;
       padding: 40px;
+      background-color: #f9f9f9;
+    }
+
+    h1 {
+      margin-bottom: 30px;
     }
 
     .bouton-lancer {
@@ -50,31 +55,107 @@
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
+
+    table {
+      margin: 30px auto;
+      border-collapse: collapse;
+      width: 80%;
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid #ccc;
+    }
+
+    th {
+      background-color: #e0e0e0;
+    }
   </style>
 </head>
 <body>
-  <h1>Lancer IA</h1>
+  <h1>NetSecurePro IA</h1>
+
   <button id="lancer-ia" class="bouton-lancer" aria-label="Lancer l'intelligence artificielle">
     <span>Lancer l'IA</span>
     <i class="fas fa-play"></i>
   </button>
+
   <div id="resultat"></div>
 
+  <div id="interface-modules">
+    <h3>Modules IA</h3>
+    <table id="table-modules">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Algorithme</th>
+          <th>Actif</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
   <script>
-    // Simulations des fonctions IA
+    // Modules IA simulés
+    let modulesIA = [
+      { id: "001", nom: "Détection d'intrusion", algorithme: "Analyse comportementale", actif: true },
+      { id: "002", nom: "Filtrage intelligent", algorithme: "Réseau de neurones", actif: false },
+      { id: "003", nom: "Analyse réseau", algorithme: "SVM", actif: true }
+    ];
+
+    // Affichage des modules dans la table
+    function afficherModules() {
+      const tbody = document.querySelector('#table-modules tbody');
+      tbody.innerHTML = '';
+
+      modulesIA.forEach((mod, index) => {
+        const ligne = document.createElement('tr');
+        ligne.innerHTML = `
+          <td>${mod.nom}</td>
+          <td>${mod.algorithme}</td>
+          <td>
+            <input type="checkbox" ${mod.actif ? 'checked' : ''} onchange="toggleModule(${index})">
+          </td>
+        `;
+        tbody.appendChild(ligne);
+      });
+    }
+
+    // Activation/désactivation d’un module
+    function toggleModule(index) {
+      modulesIA[index].actif = !modulesIA[index].actif;
+      console.log(`Module ${modulesIA[index].nom} est maintenant ${modulesIA[index].actif ? 'actif' : 'inactif'}`);
+    }
+
+    // Initialisation IA (simulée)
     async function initialiserIA() {
-      return new Promise(resolve => setTimeout(resolve, 1000)); // Simule 1s d'initialisation
+      console.log("Initialisation de l'IA...");
+      return new Promise(resolve => setTimeout(resolve, 1000));
     }
 
+    // Analyse IA (affiche les modules actifs)
     async function lancerAnalyse() {
-      return new Promise(resolve => setTimeout(resolve, 1500)); // Simule 1.5s d'analyse
+      console.log("Analyse des modules actifs...");
+      return new Promise(resolve => {
+        setTimeout(() => {
+          const actifs = modulesIA.filter(mod => mod.actif);
+          let html = `<h3>Modules actifs :</h3><ul>`;
+          actifs.forEach(mod => {
+            html += `<li><strong>${mod.nom}</strong> — ${mod.algorithme}</li>`;
+          });
+          html += `</ul>`;
+          document.getElementById('resultat').innerHTML = html;
+          resolve();
+        }, 1500);
+      });
     }
 
+    // Lancement complet
     async function lancerIA() {
       const bouton = document.getElementById('lancer-ia');
       const resultat = document.getElementById('resultat');
 
-      // Désactiver le bouton et afficher le loader
       bouton.disabled = true;
       bouton.style.opacity = 0.6;
       resultat.innerHTML = '<div class="loader"></div><p>Analyse en cours...</p>';
@@ -82,8 +163,6 @@
       try {
         await initialiserIA();
         await lancerAnalyse();
-
-        resultat.innerHTML = '✅ IA lancée et analyse effectuée avec succès !';
         bouton.innerHTML = 'Analyse terminée <i class="fas fa-check"></i>';
       } catch (erreur) {
         console.error('Erreur :', erreur);
@@ -91,11 +170,12 @@
         bouton.innerHTML = 'Réessayer <i class="fas fa-redo"></i>';
       }
 
-      // Réactiver le bouton
       bouton.disabled = false;
       bouton.style.opacity = 1;
     }
 
+    // Initialiser l’interface au chargement
+    window.onload = afficherModules;
     document.getElementById('lancer-ia').addEventListener('click', lancerIA);
   </script>
 </body>
