@@ -1,81 +1,4 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NetSecurePro IA</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 40px;
-      background-color: #f9f9f9;
-    }
-
-    h1 {
-      margin-bottom: 30px;
-    }
-
-    .bouton-lancer {
-      background-color: #4CAF50;
-      border: none;
-      color: #fff;
-      padding: 12px 24px;
-      font-size: 18px;
-      cursor: pointer;
-      border-radius: 6px;
-      transition: background-color 0.3s ease;
-    }
-
-    .bouton-lancer:hover {
-      background-color: #3e8e41;
-    }
-
-    .bouton-lancer i {
-      margin-left: 10px;
-    }
-
-    #resultat {
-      margin-top: 30px;
-      font-size: 18px;
-    }
-
-    .loader {
-      border: 4px solid #f3f3f3;
-      border-top: 4px solid #4CAF50;
-      border-radius: 50%;
-      width: 30px;
-      height: 30px;
-      animation: spin 1s linear infinite;
-      margin: 20px auto;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    table {
-      margin: 30px auto;
-      border-collapse: collapse;
-      width: 80%;
-    }
-
-    th, td {
-      padding: 12px;
-      border: 1px solid #ccc;
-    }
-
-    th {
-      background-color: #e0e0e0;
-    }
-  </style>
-</head>
-<body>
-  <h1>NetSecurePro IA</h1>
-
-  <button id="lancer-ia" class="bouton-lancer" aria-label="Lancer l'intelligence artificielle">
+<button id="lancer-ia" class="bouton-lancer" aria-label="Lancer l'intelligence artificielle">
     <span>Lancer l'IA</span>
     <i class="fas fa-play"></i>
   </button>
@@ -178,5 +101,3 @@
     window.onload = afficherModules;
     document.getElementById('lancer-ia').addEventListener('click', lancerIA);
   </script>
-</body>
-</html>
